@@ -11,8 +11,8 @@
 # Índice
 
 - [Requisitos de la cátedra](#requisitos-de-la-cátedra)
-- [Descripción del proyecto Que es PICLAB?](#descripción-del-proyecto)
-- [Alcance del proyecto](#alcance-del-proyecto)
+- [Que es PICLAB?](#Que-es-PICLAB?)
+- [Capacidad del proyecto](#Capacidad-del-proyecto)
 - [Arquitectura de hardware](#arquitectura-de-hardware)
 - [Arquitectura de software](#arquitectura-de-software)
 - [Cálculos de diseño](#cálculos-de-diseño)
@@ -36,7 +36,7 @@ El trabajo final debe cumplir los siguientes requisitos. La tabla resume cómo l
 
 > El alcance y los detalles de cada trabajo se acuerdan con el docente de cada comisión.
 
-## Descripción del proyecto
+## Que es PICLAB?
 
 El sistema es una plataforma que se inclina en dos ejes a partir de la posición de un joystick analógico. El joystick está formado por dos potenciómetros, uno por eje, cuyas tensiones ingresan a dos canales del conversor analógico-digital (ADC) de un microcontrolador PIC16F887. El firmware convierte cada lectura en un ancho de pulso y lo entrega como una señal PWM de 50 Hz a cada actuador, de modo que la inclinación de la plataforma sigue la posición del joystick.
 
@@ -44,7 +44,7 @@ El firmware está escrito en ensamblador y funciona completamente por interrupci
 
 Además del control local, el microcontrolador se comunica con una computadora mediante UART. Actualmente envía periódicamente la posición de cada canal para su visualización; la recepción de comandos y los distintos estados de operación se encuentran en desarrollo.
 
-## Alcance del proyecto
+## Capacidad del proyecto
 
 El sistema es capaz de:
 
