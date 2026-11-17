@@ -2,16 +2,16 @@
 
 **Electrónica Digital 2** — Facultad de Ciencias Exactas, Físicas y Naturales — Universidad Nacional de Córdoba
 
-> **Integrantes:** **[COMPLETAR]**
-> **Docente:** **[COMPLETAR]**
-> **Comisión:** **[COMPLETAR]**
+> **Integrantes:** **[ Paniagua Juan Cruz, Diaz Conde Juan segundo, Espinoza Joaquin, Panoso Iris]**
+> **Docente:** **[Ing. Marcos J. Blasco.]**
+> **Comisión:** **[COMUN-4.2]**
 
 > **Estado del proyecto:** versión en desarrollo. Este documento describe el firmware tal como está implementado hoy y marca explícitamente lo que está pendiente (ver [Estado del desarrollo y trabajo futuro](#estado-del-desarrollo-y-trabajo-futuro)).
 
 # Índice
 
 - [Requisitos de la cátedra](#requisitos-de-la-cátedra)
-- [Descripción del proyecto](#descripción-del-proyecto)
+- [Descripción del proyecto Que es PICLAB?](#descripción-del-proyecto)
 - [Alcance del proyecto](#alcance-del-proyecto)
 - [Arquitectura de hardware](#arquitectura-de-hardware)
 - [Arquitectura de software](#arquitectura-de-software)
