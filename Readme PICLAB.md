@@ -12,7 +12,7 @@
 
 - [Requisitos de la cátedra](#requisitos-de-la-cátedra)
 - [Que es PICLAB?](#Que-es-PICLAB?)
-- [Capacidad del proyecto](#Capacidad-del-proyecto)
+- [Capacidades del proyecto](#Capacidades-del-proyecto)
 - [Arquitectura de hardware](#arquitectura-de-hardware)
 - [Arquitectura de software](#arquitectura-de-software)
 - [Cálculos de diseño](#cálculos-de-diseño)
