@@ -137,6 +137,10 @@ flowchart TD
 ```
 
 ### Diagrama de flujo
+
+
+### Flujo de interrupciones
+
 ```mermaid
 flowchart TD
     INICIO(["INICIO<br/>Configurar Oscilador, Puertos, ADC,<br/>UART (9600 bps), TMR0, TMR1 e Interrupciones"]) --> LOOP["LOOP Principal<br/>(Espera pasiva)"]
@@ -176,6 +180,7 @@ flowchart TD
     PEDIR_R --> FIN_ISR
     RX --> FIN_ISR
     TX --> FIN_ISR
+```
 ### Modos de operación
 
 El registro `ESTADO` define el modo. Arranca en `1` y el pulsador de RB0 lo rota en el orden `1 → 2 → 0 → 1`. La interrupción externa se deshabilita ≈ 50 ms después de cada pulsación (10 desbordes de Timer0) como antirrebote.
