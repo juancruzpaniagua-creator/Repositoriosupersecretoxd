@@ -213,7 +213,7 @@ Diseño de las PCB (placa del PIC y placa de displays):
 Placas grabadas:
 
 <img width="225" height="400" alt="Grabado PCB 1" src="https://github.com/user-attachments/assets/d01acac2-1cce-4ad3-b195-dec34742b053" />
-<img width="1347" height="774" alt="WhatsApp Image 2026-11-19 at 12 01 27" src="https://github.com/user-attachments/assets/2dd1552e-6e65-4793-9b32-426f5dbb82fd" />
+<img width="400" height="225" alt="WhatsApp Image 2026-11-19 at 12 01 27" src="https://github.com/user-attachments/assets/2dd1552e-6e65-4793-9b32-426f5dbb82fd" />
 
 
 ### Joystick y actuadores
