@@ -137,10 +137,6 @@ flowchart TD
 ```
 
 ### Diagrama de flujo
-
-
-### Flujo de interrupciones
-
 ```mermaid
 flowchart TD
     INICIO(["INICIO<br/>Configurar Oscilador, Puertos, ADC,<br/>UART (9600 bps), TMR0, TMR1 e Interrupciones"]) --> LOOP["LOOP Principal<br/>(Espera pasiva)"]
