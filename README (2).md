@@ -136,6 +136,46 @@ flowchart TD
     T1 -.->|"Al terminar pulso RC1"| AD
 ```
 
+### Diagrama de flujo
+```mermaid
+flowchart TD
+    INICIO(["INICIO<br/>Configurar Oscilador, Puertos, ADC,<br/>UART (9600 bps), TMR0, TMR1 e Interrupciones"]) --> LOOP["LOOP Principal<br/>(Espera pasiva)"]
+    LOOP -.->|"Interrupción de Hardware"| ISR["Vector ISR (0x04)<br/>Guardar contexto (W, STATUS)"]
+
+    ISR --> CHK_T0{"¿T0IF = 1?"}
+    CHK_T0 -->|Sí| T0["INTERRUPCION_TIMER0 (~5 ms)<br/>• Recargar TMR0 = 100<br/>• Gestionar antirrebote (ANTICONT)<br/>• Multiplexar 4 displays (PORTD + RC2..RC5)<br/>• Si ESTADO=1 y dígito par: INCREMENTAR<br/>• Cada 4 barridos (20 ms): iniciar pulso RC0 y TMR1"]
+    CHK_T0 -->|No| CHK_INT{"¿INTF = 1?"}
+
+    CHK_INT -->|Sí| BTN["INTERRUPCION_BOTON (RB0)<br/>• Rotar ESTADO (1 -> 2 -> 0 -> 1)<br/>• Deshabilitar INTE y cargar ANTICONT = 10<br/>• Limpiar buffers RX<br/>• Si ESTADO = 0: resetear contador y centrar PWM (0xA6)"]
+    CHK_INT -->|No| CHK_T1{"¿TMR1IF = 1?"}
+
+    CHK_T1 -->|Sí| T1["INTERRUPCION_TIMER1<br/>• Apagar TMR1<br/>• Si 1er pulso (RC0): cargar PWM1, encender RC1 y TMR1<br/>• Si 2do pulso (RC1): ir a INTERRUPCION_ADC"]
+    CHK_T1 -->|No| CHK_AD{"¿ADIF = 1?"}
+
+    CHK_AD -->|Sí| AD["INTERRUPCION_ADC / Fin de Pulso<br/>• Apagar RC0 y RC1"]
+    CHK_AD -->|No| CHK_RX{"¿RCIF = 1?"}
+
+    AD --> CHK_EST{"¿ESTADO?"}
+    CHK_EST -->|"1 (Local)"| AD_LOC["Secuencia CONVERSION (CONT_ADC):<br/>• 0: Seleccionar AN0 e iniciar ADC<br/>• 1: Leer AN0 -> TABLA_PWM -> PWM0, iniciar AN1<br/>• 2: Leer AN1 -> TABLA_PWM -> PWM1, habilitar TXIE"]
+    CHK_EST -->|"2 (Remoto)"| AD_REM{"¿PAR_LISTO = 1?"}
+    CHK_EST -->|"0 (Reposo)"| FIN_ISR
+
+    AD_REM -->|Sí| REM_OK["Copiar PWM0_RX y PWM1_RX a PWM0/PWM1<br/>Limpiar PAR_LISTO y ESPERA"] --> PEDIR_R
+    AD_REM -->|No| REM_WAIT["Incrementar ESPERA (timeout 6 ciclos)"] --> PEDIR_R["Si ESPERA = 0 y TXIF = 1:<br/>Enviar 'R' por TXREG"]
+
+    CHK_RX -->|Sí| RX["INTERRUPCION_RX<br/>• Si OERR: reiniciar CREN<br/>• Si ESTADO = 2:<br/>  0x80 -> PWM0_RX -> PWM1_RX (PAR_LISTO = 1)"]
+    CHK_RX -->|No| CHK_TX{"¿TXIF = 1?"}
+
+    CHK_TX -->|Sí| TX["INTERRUPCION_ENVIO (CONT_ENVIO)<br/>• 0: Enviar 0x80<br/>• 1: Enviar PWM0<br/>• 2: Enviar PWM1 y deshabilitar TXIE"]
+    CHK_TX -->|No| FIN_ISR
+
+    T0 --> FIN_ISR["FIN_ISR<br/>Restaurar contexto (STATUS, W)<br/>RETFIE"]
+    BTN --> FIN_ISR
+    T1 --> FIN_ISR
+    AD_LOC --> FIN_ISR
+    PEDIR_R --> FIN_ISR
+    RX --> FIN_ISR
+    TX --> FIN_ISR
 ### Modos de operación
 
 El registro `ESTADO` define el modo. Arranca en `1` y el pulsador de RB0 lo rota en el orden `1 → 2 → 0 → 1`. La interrupción externa se deshabilita ≈ 50 ms después de cada pulsación (10 desbordes de Timer0) como antirrebote.
