@@ -6,6 +6,8 @@
   <br />
 </div>
 
+
+
 **Electrónica Digital 2** — Facultad de Ciencias Exactas, Físicas y Naturales — Universidad Nacional de Córdoba
 
 > **Integrantes:** Paniagua Juan Cruz, Diaz Conde Juan Segundo, Espinoza Joaquin, Panoso Iris
