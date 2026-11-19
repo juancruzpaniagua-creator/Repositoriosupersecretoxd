@@ -8,6 +8,8 @@
 >
 > **Comisión:** COMUN-4.2
 
+
+
 > **Estado del proyecto:** versión en desarrollo. Este documento describe el firmware tal como está implementado hoy y marca explícitamente lo que está pendiente (ver [Estado del desarrollo y trabajo futuro](#estado-del-desarrollo-y-trabajo-futuro)).
 
 ## Índice
