@@ -213,7 +213,8 @@ Diseño de las PCB (placa del PIC y placa de displays):
 Placas grabadas:
 
 <img width="225" height="400" alt="Grabado PCB 1" src="https://github.com/user-attachments/assets/d01acac2-1cce-4ad3-b195-dec34742b053" />
-<img width="225" height="400" alt="Grabado PCB 2" src="https://github.com/user-attachments/assets/8e2dd5b2-0273-441d-8268-1c783aaba6a1" />
+<img width="1347" height="774" alt="WhatsApp Image 2026-11-19 at 12 01 27" src="https://github.com/user-attachments/assets/2dd1552e-6e65-4793-9b32-426f5dbb82fd" />
+
 
 ### Joystick y actuadores
 
@@ -257,7 +258,7 @@ T_{pulso,min} = (256 - 188)\cdot 8\,\mu s = 544\,\mu s
 T_{pulso,max} = (256 - 145)\cdot 8\,\mu s = 888\,\mu s
 $$
 
-El recorrido de 344 µs se reparte en 32 posiciones, es decir, un paso de ≈ 11 µs. Como referencia, en un servomotor estándar de 544 a 2400 µs para 0° a 180°, este rango equivale a unos 33° de recorrido (≈ 1° por paso). **[COMPLETAR: verificar con el actuador real]**
+El recorrido de 344 µs se reparte en 32 posiciones, es decir, un paso de ≈ 11 µs. Como referencia, en un servomotor estándar de 544 a 2400 µs para 0° a 180°, este rango equivale a unos 33° de recorrido (≈ 1° por paso).
 
 El valor inicial tras el reset es `0xAD`, que corresponde a un pulso de 664 µs. En reposo (`ESTADO` = 0) el pulso se fija en `0xA6`, la posición central (≈ 720 µs).
 
@@ -373,9 +374,7 @@ La interfaz es una aplicación de escritorio que se ejecuta en la PC y se comuni
 |---|---|
 | Lenguaje | Python 3 |
 | Comunicación serie | PySerial |
-| Interfaz gráfica | **[COMPLETAR: biblioteca utilizada]** |
 | Instalación | `pip install pyserial` |
-| Ejecución | `python` **[COMPLETAR: nombre del archivo]**`.py` |
 
 ### Funciones
 
@@ -397,7 +396,6 @@ La interfaz es una aplicación de escritorio que se ejecuta en la PC y se comuni
 5. Presionar nuevamente el pulsador: el PIC pasa a `ESTADO` 0, la plataforma se centra, los displays vuelven a `00.00` y la interfaz indica **Sin datos**.
 6. Un nuevo pulso devuelve el PIC al modo local.
 
-**[COMPLETAR: agregar captura de la aplicación en funcionamiento]**
 
 ## Especificaciones eléctricas y configuración
 
@@ -405,10 +403,6 @@ La interfaz es una aplicación de escritorio que se ejecuta en la PC y se comuni
 
 - **Tensión de operación:** 5 V (también es la referencia del ADC, ya que Vref+ = VDD).
 - **Oscilador:** cristal de 4 MHz (modo XT).
-- **Alimentación de los actuadores:** **[COMPLETAR]**
-- **Consumo medido:** **[COMPLETAR]**
-- **Herramientas de software:** **[COMPLETAR: MPLAB X IDE / versión del ensamblador]**
-- **Hardware de programación y depuración:** **[COMPLETAR]**
 
 ### Bits de configuración
 
@@ -436,25 +430,6 @@ La interfaz es una aplicación de escritorio que se ejecuta en la PC y se comuni
 | EUSART | `TXSTA = 0b00100100` (`TXEN = 1`, asincrónico, `BRGH = 1`), `SPBRG = 25`, `RCSTA = 0b10010000` (`SPEN = 1`, `CREN = 1`). `RCIE` habilitada desde la inicialización; `TXIE` se habilita solo durante el envío de cada trama. |
 | Interrupciones | `GIE`, `PEIE`, `T0IE`, `INTE`, `TMR1IE`, `ADIE` y `RCIE` habilitados desde la inicialización; `TXIE` de forma dinámica. |
 
-## Ensayos y resultados
-
-Valores esperados según el diseño, para contrastar con las mediciones. **[COMPLETAR: columna "Medido" y capturas de osciloscopio]**
-
-| Magnitud | Esperado | Medido |
-|---|---|---|
-| Período de la señal PWM (RC0 y RC1) | ≈ 20 ms (≈ 50 Hz) | **[COMPLETAR]** |
-| Ancho de pulso mínimo | ≈ 544 µs | **[COMPLETAR]** |
-| Ancho de pulso máximo | ≈ 888 µs | **[COMPLETAR]** |
-| Ancho de pulso al reset (antes de la primera lectura) | ≈ 664 µs | **[COMPLETAR]** |
-| Ancho de pulso en reposo (`ESTADO` 0, `0xA6`) | ≈ 720 µs | **[COMPLETAR]** |
-| Desfase entre el pulso de RC0 y el de RC1 | Pulsos consecutivos, sin solaparse | **[COMPLETAR]** |
-| Velocidad UART | 9600 baudios (≈ 9615 reales) | **[COMPLETAR]** |
-| Período de envío por UART (`ESTADO` 1) | ≈ 20 ms por trama | **[COMPLETAR]** |
-| Tramas recibidas en la PC | `0x80`, `PWM0`, `PWM1` con `PWM` dentro de `0x91` a `0xBC` | **[COMPLETAR]** |
-| Respuesta a la solicitud `'R'` (`ESTADO` 2) | La plataforma sigue el joystick virtual | **[COMPLETAR]** |
-| Antirrebote del pulsador | ≈ 50 ms, una transición de `ESTADO` por pulsación | **[COMPLETAR]** |
-| Paso del contador de los displays | ≈ 10 ms | **[COMPLETAR]** |
-| Respuesta de la plataforma a cada eje del joystick | Inclinación proporcional a la posición | **[COMPLETAR]** |
 
 ## Estado del desarrollo y trabajo futuro
 
@@ -468,7 +443,7 @@ Valores esperados según el diseño, para contrastar con las mediciones. **[COMP
 | Trama con cabecera y sincronismo | Implementado (cabecera `0x80`) |
 | Estados de operación (reposo, local, remoto) | Implementado (pulsador en RB0 con antirrebote) |
 | Displays de 7 segmentos con contador | Implementado |
-| Interfaz de usuario en la PC | Especificada en este documento. **[COMPLETAR: estado de la aplicación]** |
+| Interfaz de usuario en la PC | Implementado |
 | Control de errores (checksum) | Pendiente |
 
 Mejoras previstas:
