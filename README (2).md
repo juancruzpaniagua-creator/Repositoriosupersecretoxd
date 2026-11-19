@@ -1,4 +1,8 @@
+
 # Trabajo Final — Plataforma inclinable controlada por joystick
+
+<img width="253" height="450" alt="giphy" src="https://github.com/user-attachments/assets/16622521-6c5b-45df-ba4d-25d931cd96ca" />
+<img width="944" height="177" alt="WhatsApp Image 2026-11-18 at 18 17 52" src="https://github.com/user-attachments/assets/647b3b10-3a4f-4828-8dc0-ddfaae7562f2" />
 
 **Electrónica Digital 2** — Facultad de Ciencias Exactas, Físicas y Naturales — Universidad Nacional de Córdoba
 
