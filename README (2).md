@@ -346,50 +346,6 @@ La interfaz es una aplicación de escritorio que se ejecuta en la PC y se comuni
 5. Presionar nuevamente el pulsador: el PIC pasa a `ESTADO` 0, la plataforma se centra, los displays vuelven a `00.00` y la interfaz indica **Sin datos**.
 6. Un nuevo pulso devuelve el PIC al modo local.
 
-### Conversión de datos y ejemplo de código
-
-La aplicación usa la misma tabla de 32 valores que el firmware (ver [Anexo](#anexo-tabla-de-conversión)). El siguiente ejemplo muestra la lectura sincronizada de la trama y la respuesta a una solicitud:
-
-```python
-import serial
-
-TABLA_PWM = [0xBC, 0xBB, 0xB9, 0xB8, 0xB6, 0xB5, 0xB4, 0xB2,
-             0xB1, 0xAF, 0xAE, 0xAD, 0xAB, 0xAA, 0xA9, 0xA7,
-             0xA6, 0xA4, 0xA3, 0xA2, 0xA0, 0x9F, 0x9D, 0x9C,
-             0x9B, 0x99, 0x98, 0x96, 0x95, 0x94, 0x92, 0x91]
-
-def leer_trama(s):
-    """Descarta bytes hasta la cabecera 0x80 y devuelve (pwm0, pwm1)."""
-    while True:
-        b = s.read(1)
-        if not b:
-            return None                  # timeout: reposo o PIC desconectado
-        if b[0] == 0x80:
-            datos = s.read(2)
-            if len(datos) == 2:
-                return datos[0], datos[1]
-
-def a_microsegundos(byte):
-    return (256 - byte) * 8
-
-def responder_solicitud(s, pos0, pos1):
-    """Envía la posición (0 a 31 por eje) como trama al PIC en ESTADO 2."""
-    s.write(bytes([0x80, TABLA_PWM[pos0], TABLA_PWM[pos1]]))
-
-with serial.Serial("COM3", 9600, timeout=0.3) as s:   # ajustar el puerto
-    # Modo local: monitorear la posición del joystick
-    trama = leer_trama(s)
-    if trama:
-        pos0, pos1 = (TABLA_PWM.index(b) for b in trama)
-        print(pos0, pos1, a_microsegundos(trama[0]), a_microsegundos(trama[1]))
-
-    # Modo remoto: responder a cada 'R' con la posición deseada
-    if s.read(1) == b"R":
-        responder_solicitud(s, 16, 16)               # posición central
-```
-
-### Captura de pantalla
-
 **[COMPLETAR: agregar captura de la aplicación en funcionamiento]**
 
 ## Especificaciones eléctricas y configuración
