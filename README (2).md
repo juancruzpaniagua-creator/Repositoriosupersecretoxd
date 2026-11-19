@@ -4,7 +4,6 @@
 <div align="center">
   <img width="253" height="300" alt="giphy" src="https://github.com/user-attachments/assets/16622521-6c5b-45df-ba4d-25d931cd96ca" />
   <br />
-  <img width="500" height="85" alt="WhatsApp Image 2026-11-18 at 18 17 52" src="https://github.com/user-attachments/assets/647b3b10-3a4f-4828-8dc0-ddfaae7562f2" />
 </div>
 
 **Electrónica Digital 2** — Facultad de Ciencias Exactas, Físicas y Naturales — Universidad Nacional de Córdoba
